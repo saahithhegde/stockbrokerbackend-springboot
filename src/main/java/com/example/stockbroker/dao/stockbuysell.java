@@ -4,11 +4,61 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 public class stockbuysell {
-   private Integer stocktableid;
+
+
+
+    private Integer stocktableid;
 
     private Integer quantity;
 
     private Long accountno;
+
+    private String email;
+    
+   private String stockname;
+
+    public String getStockname() {
+        return stockname;
+    }
+
+    public void setStockname(String stockname) {
+        this.stockname = stockname;
+    }
+
+    public String getTickersymbol() {
+        return tickersymbol;
+    }
+
+    public void setTickersymbol(String tickersymbol) {
+        this.tickersymbol = tickersymbol;
+    }
+
+    private String tickersymbol;
+
+
+
+
+
+
+
+
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+
+
+
+
+
+
 
 
     public Integer getStocktableid() {

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,13 +98,54 @@ public class stockController {
         }
     }
 
+    @RequestMapping(value="buyNewStock",method = RequestMethod.POST,produces = {"application/json"})
+    public String buyNewStock(@RequestBody stockbuysell stockbuyselldetails) {
+        String message="";
+        try {
+            String tickerSymbol=stockbuyselldetails.getTickersymbol();
+            String stockName=stockbuyselldetails.getStockname();
+            Integer quantity= stockbuyselldetails.getQuantity();
+            Long accountno=stockbuyselldetails.getAccountno();
+            String email=stockbuyselldetails.getEmail();
+
+            List<stocks> existingStocks=userStocksRepo.findStockByTickersymbolAndEmail(tickerSymbol,email);
+            if(existingStocks.size()==0) {
+                stocks newStockEntry = new stocks();
+                List<stocks> iftickerexists = getAllStocks(tickerSymbol);
+                if (iftickerexists.size() > 0 && iftickerexists != null) {
+                    Double currentPrice = getCurrentStockPrice(tickerSymbol);
+                    for (bankdetails userBankData : bankRep.findBankDetailsByAccountno(accountno)) {
+                        if (userBankData.getBalance() > quantity * currentPrice) {
+                            newStockEntry.setEmail(email);
+                            newStockEntry.setQuantity(quantity);
+                            newStockEntry.setStockname(stockName);
+                            newStockEntry.setTickersymbol(tickerSymbol);
+                            userBankData.setBalance(userBankData.getBalance() - (quantity * currentPrice));
+                            userStocksRepo.save(newStockEntry);
+                            bankRep.save(userBankData);
+                            message = "Sucessfully bought new stocks";
+                        } else {
+                            message = "not enough balance in this account";
+                        }
+                    }
+                }
+            }
+            else{
+
+            }
+            return message;
+        }
+        catch (Exception e) {
+            return "eroor please try again";
+        }
+    }
     public static Double getCurrentStockPrice(String tickerSymbol)
     {
         final String uri = "http://localhost:8081/current";
 
 
         RestTemplate restTemplate = new RestTemplate();
-        Double currentPrice=restTemplate.postForObject(uri,tickerSymbol,Double.class);
+        Double currentPrice=10.0 ;/*restTemplate.postForObject(uri,tickerSymbol,Double.class);*/
 
         return currentPrice;
     }
@@ -113,8 +155,11 @@ public class stockController {
         final String uri = "http://localhost:8081/getStocks";
 
         RestTemplate restTemplate = new RestTemplate();
-        List<stocks> allStocks=restTemplate.postForObject(uri,tickerSymbol,List.class);
-
+        List<stocks> allStocks=new ArrayList<stocks>();/*restTemplate.postForObject(uri,tickerSymbol,List.class);*/
+        stocks newstock=new stocks();
+        newstock.setTickersymbol("lfs");
+        newstock.setCurrentprice(10);
+        allStocks.add(newstock);
         return allStocks;
     }
 

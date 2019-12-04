@@ -21,6 +21,10 @@ public class bankController {
     @RequestMapping(value = "addBankDetails", method = RequestMethod.POST, produces = {"application/json"})
     public String addBank(@RequestBody bankdetails bankData) {
         try {
+            if(bankData.getBalance()==null)
+            {
+                bankData.setBalance(50000.0);;
+            }
             bankRepo.save(bankData);
             return "Bank Details Saved Sucessfully";
         }

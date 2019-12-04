@@ -10,4 +10,5 @@ import java.util.List;
 public interface userStockRepository extends JpaRepository<stocks,Integer> {
     stocks findStockByStocktableid(Integer  stockTableId);
     List<stocks> findStockByEmail(String email);
+    List<stocks> findStockByTickersymbolAndEmail(String tickersymbol,String email);
 }

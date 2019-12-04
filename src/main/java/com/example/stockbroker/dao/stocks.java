@@ -12,7 +12,17 @@ public class stocks {
     private String email;
     private String tickersymbol;
     private String stockname;
+
+    public Integer getCurrentprice() {
+        return currentprice;
+    }
+
+    public void setCurrentprice(Integer currentprice) {
+        this.currentprice = currentprice;
+    }
+
     private Integer quantity;
+    private Integer currentprice;
 
     public Integer getStocktableid() {
         return stocktableid;
