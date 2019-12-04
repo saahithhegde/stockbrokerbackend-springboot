@@ -2,6 +2,7 @@ package com.example.stockbroker.controller;
 
 import com.example.stockbroker.dao.bankdetails;
 import com.example.stockbroker.dao.stocks;
+import com.example.stockbroker.dao.transfer;
 import com.example.stockbroker.dao.userBankRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,14 +45,34 @@ public class bankController {
         }
     }
 
-    public String UpdateBalance(@RequestBody bankdetails bankData){
+    @RequestMapping(value="transferBankFunds",method = RequestMethod.POST, produces = {"application/json"})
+    public String tranferFunds(@RequestBody transfer tranferData){
         try{
-            bankRepo.save(bankData);
-            return "Deleted Sucessfully";
+            bankdetails bank1 = new bankdetails();
+            bankdetails bank2=new bankdetails();
+           for(bankdetails bank: bankRepo.findBankDetailsByAccountno(tranferData.getAccount1()))
+           {
+               bank1=bank;
+           }
+            for(bankdetails bank: bankRepo.findBankDetailsByAccountno(tranferData.getAccount2()))
+            {
+                bank2=bank;
+            }
+            Double Amount=tranferData.getAmount();
+            Double oldb1balance=bank1.getBalance();
+            Double oldb2balance=bank2.getBalance();
+            bank1.setBalance(oldb1balance-Amount);
+            bank2.setBalance(oldb2balance+Amount);
+            bankRepo.save(bank1);
+            bankRepo.save(bank2);
+            return "Sucessfully Transfered funds";
+
         }
         catch (Exception e){
-            return e.toString();
+            return "Please try again";
         }
     }
+
+
 
 }
