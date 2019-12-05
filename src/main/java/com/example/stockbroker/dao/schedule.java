@@ -9,6 +9,7 @@ public class schedule {
 
     private String email;
 
+    @Id
     public String getEmail() {
         return email;
     }
@@ -20,7 +21,7 @@ public class schedule {
     private String ticekrsymbol;
     private Integer Quantity;
     private String buyorsell;
-    private String typeofschedule;
+
     private Date date;
 
     public Date getDate() {
@@ -66,13 +67,7 @@ public class schedule {
         this.buyorsell = buyorsell;
     }
 
-    public String getTypeofschedule() {
-        return typeofschedule;
-    }
 
-    public void setTypeofschedule(String typeofschedule) {
-        this.typeofschedule = typeofschedule;
-    }
 
     public String getRecurringvalue() {
         return recurringvalue;

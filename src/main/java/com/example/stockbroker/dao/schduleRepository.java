@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface schduleRepository extends JpaRepository<schedule,Integer> {
-    List<schedule> findScheduleByEmailAndTickersymbol(String email, String tickersymbol);
+    List<schedule> findScheduleByEmailAndTicekrsymbol(String email, String tickersymbol);
 }

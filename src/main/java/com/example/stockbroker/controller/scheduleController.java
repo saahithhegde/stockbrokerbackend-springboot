@@ -26,7 +26,7 @@ public class scheduleController {
 
     @RequestMapping(value="getSchedule",method = RequestMethod.POST,produces = {"application/json"})
     public List<schedule> getSchedule(@RequestBody schedule scheduledetails) {
-        List<schedule> currentuserschedule=schRepo.findScheduleByEmailAndTickersymbol(scheduledetails.getEmail(),scheduledetails.getTicekrsymbol());
+        List<schedule> currentuserschedule=schRepo.findScheduleByEmailAndTicekrsymbol(scheduledetails.getEmail(),scheduledetails.getTicekrsymbol());
         return currentuserschedule;
     }
 
@@ -34,7 +34,7 @@ public class scheduleController {
     public String addSchedule(@RequestBody schedule scheduledetails) {
         try {
 
-            List<schedule> existingschedule=schRepo.findScheduleByEmailAndTickersymbol(scheduledetails.getEmail(),scheduledetails.getTicekrsymbol());
+            List<schedule> existingschedule=schRepo.findScheduleByEmailAndTicekrsymbol(scheduledetails.getEmail(),scheduledetails.getTicekrsymbol());
             if(existingschedule!=null)
             {
             schRepo.save(scheduledetails);
@@ -50,7 +50,7 @@ public class scheduleController {
     @RequestMapping(value="deleteSchedule",method = RequestMethod.POST,produces = {"application/json"})
     public String deleteSchedule(@RequestBody schedule scheduledetails) {
         try {
-            List<schedule> existingschedule=schRepo.findScheduleByEmailAndTickersymbol(scheduledetails.getEmail(),scheduledetails.getTicekrsymbol());
+            List<schedule> existingschedule=schRepo.findScheduleByEmailAndTicekrsymbol(scheduledetails.getEmail(),scheduledetails.getTicekrsymbol());
                 schRepo.delete(existingschedule.get(0));
                 return "Sucesfully deleted schedule";
         } catch (Exception e) {
