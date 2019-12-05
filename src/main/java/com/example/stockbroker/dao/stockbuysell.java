@@ -13,9 +13,19 @@ public class stockbuysell {
 
     private Long accountno;
 
+    public Double getCurrentprice() {
+        return currentprice;
+    }
+
+    public void setCurrentprice(Double currentprice) {
+        this.currentprice = currentprice;
+    }
+
     private String email;
     
    private String stockname;
+
+   private Double currentprice;
 
     public String getStockname() {
         return stockname;

@@ -2,15 +2,34 @@ package com.example.stockbroker.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class schedule {
-    @Id
-    private Integer stocktableid;
+
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private String ticekrsymbol;
     private Integer Quantity;
     private String buyorsell;
     private String typeofschedule;
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public Long getAccountno() {
         return accountno;
@@ -22,14 +41,6 @@ public class schedule {
 
     private String recurringvalue;
     private Long accountno;
-
-    public Integer getStocktableid() {
-        return stocktableid;
-    }
-
-    public void setStocktableid(Integer stocktableid) {
-        this.stocktableid = stocktableid;
-    }
 
     public String getTicekrsymbol() {
         return ticekrsymbol;

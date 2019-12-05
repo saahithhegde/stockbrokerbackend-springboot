@@ -13,16 +13,16 @@ public class stocks {
     private String tickersymbol;
     private String stockname;
 
-    public Integer getCurrentprice() {
+    public Double getCurrentprice() {
         return currentprice;
     }
 
-    public void setCurrentprice(Integer currentprice) {
+    public void setCurrentprice(Double currentprice) {
         this.currentprice = currentprice;
     }
 
     private Integer quantity;
-    private Integer currentprice;
+    private Double currentprice;
 
     public Integer getStocktableid() {
         return stocktableid;
